@@ -19,15 +19,15 @@ export class Triangle implements Figure {
   ) {
     this.color = color;
 
-    if (a + b <= c || a + c <= b || b + c <= a) {
+    if (a <= 0 || b <= 0 || c <= 0) {
       throw new Error('your error message');
     }
   }
 
   getArea(): number {
-    const p = (this.a + this.b + this.c) / 2; // напівпериметр
-
-    return Math.sqrt(p * (p - this.a) * (p - this.b) * (p - this.c)); // формула
+    const p = (this.a + this.b + this.c) / 2;
+    const area = Math.sqrt(p * (p - this.a) * (p - this.b) * (p - this.c));
+    return +area.toFixed(2);
   }
 }
 
@@ -41,10 +41,16 @@ export class Circle implements Figure {
     color: Color = 'red',
   ) {
     this.color = color;
+
+    if (radius <= 0) {
+      throw new Error('your error message');
+    }
   }
 
   getArea(): number {
-    return Math.PI * this.radius ** 2;
+    const radiucs = Math.PI * this.radius ** 2;
+
+    return +radiucs.toFixed(2);
   }
 }
 
@@ -59,13 +65,19 @@ export class Rectangle implements Figure {
     color: Color = 'blue',
   ) {
     this.color = color;
+
+    if (width <= 0 || height <= 0) {
+      throw new Error('your error message');
+    }
   }
 
   getArea(): number {
-    return this.width * this.height;
+    const rectangles = this.width * this.height;
+
+    return +rectangles.toFixed(2);
   }
 }
 
 export function getInfo(figure: Figure): string {
-  return `Shape: ${figure.shape}, Color: ${figure.color}, Ared: ${figure.getArea()}`;
+  return ` Color: ${figure.color}, Shape: ${figure.shape}, Ared: ${figure.getArea()}`;
 }
