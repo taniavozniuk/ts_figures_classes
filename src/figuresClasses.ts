@@ -1,18 +1,21 @@
+type Color = 'green' | 'red' | 'blue';
+
 export interface Figure {
   shape: string;
-  color: 'green' | 'red' | 'blue';
+  color: Color;
   getArea(): number;
 }
 
 export class Triangle implements Figure {
   shape = 'triangle';
-  color: 'green' | 'red' | 'blue';
+
+  color: Color;
 
   constructor(
     public a: number,
     public b: number,
     public c: number,
-    color: 'green' | 'red' | 'blue' = 'green',
+    color: Color = 'green',
   ) {
     this.color = color;
 
@@ -30,11 +33,12 @@ export class Triangle implements Figure {
 
 export class Circle implements Figure {
   shape = 'circle';
-  color = 'green' | 'red' | 'blue';
+
+  color: Color;
 
   constructor(
     public radius: number,
-    color: 'green' | 'red' | 'blue' = 'red',
+    color: Color = 'red',
   ) {
     this.color = color;
   }
@@ -46,12 +50,13 @@ export class Circle implements Figure {
 
 export class Rectangle implements Figure {
   shape = 'rectangle';
-  color = 'green' | 'red' | 'blue';
+
+  color: Color;
 
   constructor(
     public width: number,
     public height: number,
-    color = 'green' | 'red' | 'blue' = 'blue',
+    color: Color = 'blue',
   ) {
     this.color = color;
   }
