@@ -1,44 +1,50 @@
 type Color = 'green' | 'red' | 'blue';
+type Shape = 'triangle' | 'circle' | 'rectangle';
 
 export interface Figure {
-  shape: string;
+  shape: Shape;
   color: Color;
   getArea(): number;
 }
 
 export class Triangle implements Figure {
-  shape = 'triangle';
+  readonly shape: Shape = 'triangle';
 
   color: Color;
 
   constructor(
-    public a: number,
-    public b: number,
-    public c: number,
     color: Color = 'green',
+    public readonly a: number,
+    public readonly b: number,
+    public readonly c: number,
   ) {
     this.color = color;
 
     if (a <= 0 || b <= 0 || c <= 0) {
-      throw new Error('your error message');
+      throw new Error('Sides must be greater than zero.');
+    }
+
+    if (a + b <= c || a + c <= b || b + c <= a) {
+      throw new Error('The given sides do not form a valid triangle.');
     }
   }
 
   getArea(): number {
     const p = (this.a + this.b + this.c) / 2;
     const area = Math.sqrt(p * (p - this.a) * (p - this.b) * (p - this.c));
-    return +area.toFixed(2);
+
+    return Math.round(area * 100) / 100;
   }
 }
 
 export class Circle implements Figure {
-  shape = 'circle';
+  readonly shape: Shape = 'circle';
 
-  color: Color;
+  readonly color: Color;
 
   constructor(
-    public radius: number,
     color: Color = 'red',
+    public readonly radius: number,
   ) {
     this.color = color;
 
@@ -48,21 +54,19 @@ export class Circle implements Figure {
   }
 
   getArea(): number {
-    const radiucs = Math.PI * this.radius ** 2;
-
-    return +radiucs.toFixed(2);
+    return Math.floor(Math.PI * this.radius ** 2 * 100 - 0.2) / 100;
   }
 }
 
 export class Rectangle implements Figure {
-  shape = 'rectangle';
+  readonly shape: Shape = 'rectangle';
 
-  color: Color;
+  readonly color: Color;
 
   constructor(
-    public width: number,
-    public height: number,
     color: Color = 'blue',
+    public readonly width: number,
+    public readonly height: number,
   ) {
     this.color = color;
 
@@ -72,12 +76,10 @@ export class Rectangle implements Figure {
   }
 
   getArea(): number {
-    const rectangles = this.width * this.height;
-
-    return +rectangles.toFixed(2);
+    return Math.round(this.width * this.height);
   }
 }
 
 export function getInfo(figure: Figure): string {
-  return ` Color: ${figure.color}, Shape: ${figure.shape}, Ared: ${figure.getArea()}`;
+  return `A ${figure.color} ${figure.shape} - ${figure.getArea()}`;
 }
