@@ -31,9 +31,10 @@ export class Triangle implements Figure {
 
   getArea(): number {
     const p = (this.a + this.b + this.c) / 2;
-    const area = Math.sqrt(p * (p - this.a) * (p - this.b) * (p - this.c));
+    const radius =
+      Math.sqrt(p * (p - this.a) * (p - this.b) * (p - this.c)) / p;
 
-    return Math.round(area * 100) / 100;
+    return Math.round(Math.PI * radius ** 2 * 100) / 100;
   }
 }
 
@@ -49,7 +50,7 @@ export class Circle implements Figure {
     this.color = color;
 
     if (radius <= 0) {
-      throw new Error('your error message');
+      throw new Error('Radius must be greater than zero.');
     }
   }
 
@@ -71,7 +72,7 @@ export class Rectangle implements Figure {
     this.color = color;
 
     if (width <= 0 || height <= 0) {
-      throw new Error('your error message');
+      throw new Error('Width and height must be greater than zero.');
     }
   }
 
